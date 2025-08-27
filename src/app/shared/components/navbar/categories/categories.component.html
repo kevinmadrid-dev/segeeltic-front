@@ -1,0 +1,77 @@
+<!-- Overlay -->
+<div
+  *ngIf="isCategoriesOpen"
+  class="fixed inset-0 bg-[rgba(0,0,0,0.5)] bg-opacity-50 z-40"
+  (click)="closeSidebar()"
+></div>
+
+<!-- Sidebar categorías -->
+<div
+  class="flex flex-col fixed top-0 left-0 h-full w-[40%] bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
+  [class.-translate-x-full]="!isCategoriesOpen"
+  [class.translate-x-0]="isCategoriesOpen"
+>
+  <!-- Header -->
+  <div class="flex justify-between items-center p-6">
+    <h2 class="text-lg font-semibold">Categorías</h2>
+
+    <button (click)="closeSidebar()" class="text-black cursor-pointer">✕</button>
+  </div>
+
+  <!--Span-->
+  <div class="w-full flex items-center justify-center">
+    <span class="w-[95%] h-px bg-[#ccc] flex justify-center mx-1"></span>
+  </div>
+
+  <!-- Listado -->
+  <div class="py-4 px-8 flex-1 overflow-y-auto">
+    <ul class="space-y-2">
+      <li *ngFor="let category of categories">
+        <button
+          (click)="toggleCategory(category.name)"
+          class="w-full flex justify-between items-center text-left font-medium py-2 px-3 rounded hover:bg-gray-100 cursor-pointer"
+        >
+          {{ category.name }}
+          <span>
+            <svg
+              [class.rotate-90]="activeCategory === category.name"
+              class="w-4 h-4 transform transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Subcategorías -->
+        <ul
+          *ngIf="activeCategory === category.name"
+          class="ml-6 mt-1 space-y-1 text-sm text-gray-600"
+        >
+          <li *ngFor="let sub of category.subcategories">
+            <a
+              href="#"
+              class="block py-1 px-2 rounded hover:bg-gray-200"
+              (click)="closeSidebar()"
+            >
+              {{ sub }}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!--Span-->
+  <div class="w-full flex items-center justify-center">
+    <span class="w-[95%] h-px bg-[#ccc] flex justify-center mx-1"></span>
+  </div>
+
+  <!--Footer-->
+  <div class="py-4 px-8">
+    <img src="assets/icons/large-logo.svg" alt="Logo" class="w-20" />
+  </div>
+</div>

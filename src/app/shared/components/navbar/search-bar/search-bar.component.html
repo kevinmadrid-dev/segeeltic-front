@@ -1,0 +1,71 @@
+<div class="search-input">
+  <input
+    type="text"
+    placeholder="Buscar en segeeltic.com"
+    class="w-full px-6 py-2 outline-none text-[#343E49] rounded-full"
+    (focus)="showDropdown = true"
+    (blur)="hideDropdown()"
+    [(ngModel)]="searchQuery"
+    (input)="onSearchChange()"
+  />
+</div>
+
+<!-- Botón lupa -->
+<div
+  class="search-btn absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.5em"
+    height="1.5em"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M15.096 5.904a6.5 6.5 0 1 0-9.192 9.192a6.5 6.5 0 0 0 9.192-9.192M4.49 4.49a8.5 8.5 0 0 1 12.686 11.272l5.345 5.345l-1.414 1.414l-5.345-5.345A8.501 8.501 0 0 1 4.49 4.49"
+    />
+  </svg>
+</div>
+
+<!-- Submenú desplegable -->
+<div
+  *ngIf="showDropdown"
+  class="absolute top-full left-0 mt-[1px] w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50"
+>
+  <!-- Últimas búsquedas -->
+  <div class="p-3">
+    <h4 class="text-sm text-gray-500 mb-2">Últimas búsquedas</h4>
+    <ul class="space-y-2">
+      <li
+        *ngFor="let item of lastSearches; let i = index"
+        class="flex justify-between items-center bg-gray-50 px-3 py-1 rounded-md"
+      >
+        <span class="text-gray-700 text-sm">{{ item }}</span>
+
+        <button
+          class="text-gray-400 hover:text-red-500 cursor-pointer"
+          (click)="removeSearch(i)"
+        >
+          ✕
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Separador -->
+  <hr class="border-gray-200" />
+
+  <!-- Sugerencias -->
+  <div class="p-3">
+    <h4 class="text-sm text-gray-500 mb-2">Sugerencias</h4>
+    <ul class="space-y-2">
+      <li
+        *ngFor="let suggestion of suggestions"
+        class="px-3 py-1 rounded-md hover:bg-gray-100 cursor-pointer text-sm"
+        (click)="selectSuggestion(suggestion)"
+      >
+        {{ suggestion }}
+      </li>
+    </ul>
+  </div>
+</div>
