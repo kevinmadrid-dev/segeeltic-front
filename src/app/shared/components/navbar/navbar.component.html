@@ -1,0 +1,226 @@
+<nav class="w-full bg-white shadow-md px-6 py-2 flex items-center justify-between">
+  <div class="w-auto flex items-center cursor-pointer">
+    <a href="/">
+      <img src="assets/icons/large-logo.svg" alt="Logo" class="w-40" />
+    </a>
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div
+    class="search-container relative w-[50%] border border-[#343E49] rounded-full"
+  >
+    <div class="search-input">
+      <input
+        type="text"
+        placeholder="Buscar en segeeltic.com"
+        class="w-full px-6 py-2 outline-none text-[#343E49] rounded-full"
+        (focus)="showDropdown = true"
+        (blur)="hideDropdown()"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+      />
+    </div>
+
+    <!-- Botón lupa -->
+    <div class="search-btn absolute inset-y-0 right-0 flex items-center pr-3">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="1.5em"
+        height="1.5em"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M15.096 5.904a6.5 6.5 0 1 0-9.192 9.192a6.5 6.5 0 0 0 9.192-9.192M4.49 4.49a8.5 8.5 0 0 1 12.686 11.272l5.345 5.345l-1.414 1.414l-5.345-5.345A8.501 8.501 0 0 1 4.49 4.49"
+        />
+      </svg>
+    </div>
+
+    <!-- Submenú desplegable -->
+    <div
+      *ngIf="showDropdown"
+      class="absolute top-full left-0 mt-[1px] w-full bg-white border border-gray-200 rounded-xl shadow-lg z-50"
+    >
+      <!-- Últimas búsquedas -->
+      <div class="p-3">
+        <h4 class="text-sm text-gray-500 mb-2">Últimas búsquedas</h4>
+        <ul class="space-y-2">
+          <li
+            *ngFor="let item of lastSearches; let i = index"
+            class="flex justify-between items-center bg-gray-50 px-3 py-1 rounded-md"
+          >
+            <span class="text-gray-700 text-sm">{{ item }}</span>
+
+            <button
+              class="text-gray-400 hover:text-red-500 cursor-pointer"
+              (click)="removeSearch(i)"
+            >
+              ✕
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Separador -->
+      <hr class="border-gray-200" />
+
+      <!-- Sugerencias -->
+      <div class="p-3">
+        <h4 class="text-sm text-gray-500 mb-2">Sugerencias</h4>
+        <ul class="space-y-2">
+          <li
+            *ngFor="let suggestion of suggestions"
+            class="px-3 py-1 rounded-md hover:bg-gray-100 cursor-pointer text-sm"
+            (click)="selectSuggestion(suggestion)"
+          >
+            {{ suggestion }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <ul class="w-auto flex items-center space-x-6 text-gray-700 font-medium">
+    <li><a href="#" class="hover:text-blue-600">Tendencias</a></li>
+
+    <!-- Categorías -->
+    <li>
+      <button
+        (click)="isCategoriesOpen = true"
+        class="hover:text-blue-600 focus:outline-none cursor-pointer"
+      >
+        Categorías
+      </button>
+    </li>
+
+    <!-- Perfil -->
+    <li>
+      <a href="#" class="hover:text-blue-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.5em"
+          height="1.5em"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 2a5 5 0 1 0 5 5a5 5 0 0 0-5-5m0 8a3 3 0 1 1 3-3a3 3 0 0 1-3 3m9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"
+          />
+        </svg>
+      </a>
+    </li>
+
+    <!-- Favoritos -->
+    <li>
+      <a href="#" class="hover:text-blue-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.5em"
+          height="1.5em"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12.001 3.818a6.228 6.228 0 0 1 8.51 9.087l-5.224 5.225h-.001L12 21.415l-7.28-7.279l-1.23-1.232A6.228 6.228 0 0 1 12 3.818m3.285 11.485l3.811-3.812a4.228 4.228 0 1 0-5.98-5.98L12 6.627L10.883 5.51a4.228 4.228 0 1 0-5.98 5.98l1.232 1.232L12 18.587l3.285-3.285"
+          />
+        </svg>
+      </a>
+    </li>
+
+    <!-- Carrito -->
+    <li>
+      <a href="#" class="hover:text-blue-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.5em"
+          height="1.5em"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M17 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1l-.9 1.63l-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1zm6 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5z"
+          />
+        </svg>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Overlay -->
+  <div
+    *ngIf="isCategoriesOpen"
+    class="fixed inset-0 bg-[rgba(0,0,0,0.5)] bg-opacity-50 z-40"
+    (click)="closeSidebar()"
+  ></div>
+
+  <!-- Sidebar categorías -->
+  <div
+    class="flex flex-col fixed top-0 left-0 h-full w-[40%] bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out"
+    [class.-translate-x-full]="!isCategoriesOpen"
+    [class.translate-x-0]="isCategoriesOpen"
+  >
+    <!-- Header -->
+    <div class="flex justify-between items-center p-6">
+      <h2 class="text-lg font-semibold">Categorías</h2>
+
+      <button (click)="closeSidebar()" class="text-black cursor-pointer">✕</button>
+    </div>
+
+    <!--Span-->
+    <div class="w-full flex items-center justify-center">
+      <span class="w-[95%] h-px bg-[#ccc] flex justify-center mx-1"></span>
+    </div>
+
+    <!-- Listado -->
+    <div class="py-4 px-8 flex-1 overflow-y-auto">
+      <ul class="space-y-2">
+        <li *ngFor="let category of categories">
+          <button
+            (click)="toggleCategory(category.name)"
+            class="w-full flex justify-between items-center text-left font-medium py-2 px-3 rounded hover:bg-gray-100 cursor-pointer"
+          >
+            {{ category.name }}
+            <span>
+              <svg
+                [class.rotate-90]="activeCategory === category.name"
+                class="w-4 h-4 transform transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 5l7 7-7 7"></path>
+              </svg>
+            </span>
+          </button>
+
+          <!-- Subcategorías -->
+          <ul
+            *ngIf="activeCategory === category.name"
+            class="ml-6 mt-1 space-y-1 text-sm text-gray-600"
+          >
+            <li *ngFor="let sub of category.subcategories">
+              <a
+                href="#"
+                class="block py-1 px-2 rounded hover:bg-gray-200"
+                (click)="closeSidebar()"
+              >
+                {{ sub }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!--Span-->
+    <div class="w-full flex items-center justify-center">
+      <span class="w-[95%] h-px bg-[#ccc] flex justify-center mx-1"></span>
+    </div>
+
+    <!--Footer-->
+    <div class="py-4 px-8">
+      <img src="assets/icons/large-logo.svg" alt="Logo" class="w-20" />
+    </div>
+  </div>
+</nav>
