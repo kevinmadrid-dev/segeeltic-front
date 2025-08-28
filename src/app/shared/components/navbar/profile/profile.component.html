@@ -1,0 +1,45 @@
+<!-- Overlay -->
+<div *ngIf="isOpen" class="fixed inset-0 z-40" (click)="closeMenu()"></div>
+
+<div class="relative">
+  <div
+    *ngIf="isOpen"
+    class="absolute right-0 mt-1 w-48 bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200 z-50 animate-fadeIn"
+  >
+    <div class="px-4 py-2 text-sm text-gray-700">
+      Hola{{ user ? ", " + user.name : "" }}
+    </div>
+
+    <ng-container *ngIf="!user; else loggedIn">
+      <button
+        (click)="login()"
+        class="w-full text-left px-7 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+      >
+        Iniciar Sesión
+      </button>
+
+      <button
+        (click)="register()"
+        class="w-full text-left px-7 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+      >
+        Regístrate
+      </button>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <button
+        (click)="goToProfile()"
+        class="w-full text-left px-7 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+      >
+        Mi Perfil
+      </button>
+
+      <button
+        (click)="logout()"
+        class="w-full text-left px-7 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+      >
+        Cerrar Sesión
+      </button>
+    </ng-template>
+  </div>
+</div>

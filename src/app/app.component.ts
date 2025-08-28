@@ -1,10 +1,10 @@
 import { Component } from "@angular/core"
 
-import { NavbarComponent } from "./shared/components/navbar/navbar.component"
+import { HomePageComponent } from "./features/home-page/home-page.component"
 
 @Component({
   selector: "app-root",
-  imports: [NavbarComponent],
+  imports: [HomePageComponent],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css"
 })
