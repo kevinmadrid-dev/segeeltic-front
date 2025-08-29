@@ -1,6 +1,9 @@
 import { CommonModule } from "@angular/common"
 import { Component } from "@angular/core"
 import { FormsModule } from "@angular/forms"
+import { Observable } from "rxjs"
+
+import { UiService } from "../../../../core/services/ui.service"
 
 @Component({
   selector: "nav-categories",
@@ -9,10 +12,10 @@ import { FormsModule } from "@angular/forms"
   styleUrl: "./categories.component.css"
 })
 export class CategoriesComponent {
-  isCategoriesOpen = false
+  isOpen$: Observable<boolean>
 
-  openSidebar() {
-    this.isCategoriesOpen = true
+  constructor(private uiService: UiService) {
+    this.isOpen$ = this.uiService.getCategoriesState()
   }
 
   activeCategory: string | null = null
@@ -36,8 +39,7 @@ export class CategoriesComponent {
     this.activeCategory = this.activeCategory === name ? null : name
   }
 
-  closeSidebar() {
-    this.isCategoriesOpen = false
-    this.activeCategory = null
+  closeMenu() {
+    this.uiService.toggleCategories()
   }
 }
