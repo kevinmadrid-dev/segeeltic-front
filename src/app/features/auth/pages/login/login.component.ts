@@ -49,9 +49,7 @@ export class LoginComponent {
   }
 
   onForgotPassword() {
-    console.log("Forgot password clicked")
-    // Lógica de recuperación de contraseña
-    alert("Forgot password functionality - implement your reset password flow here")
+    this.router.navigate(["/reset-password"])
   }
 
   onCreateAccount() {
