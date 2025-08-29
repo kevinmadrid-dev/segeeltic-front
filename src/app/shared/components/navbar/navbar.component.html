@@ -46,7 +46,6 @@
         </svg>
       </button>
 
-      <!-- Perfil -->
       <!-- <nav-profile [user]="{ name: 'Kevin' }"></nav-profile> -->
       <nav-profile></nav-profile>
     </li>
@@ -75,7 +74,7 @@
 
     <!-- Carrito -->
     <li>
-      <a href="#" class="hover:text-blue-600">
+      <a [routerLink]="['/cart']" class="hover:text-blue-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1.5em"

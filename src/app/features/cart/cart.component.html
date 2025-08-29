@@ -1,0 +1,82 @@
+<shared-navbar></shared-navbar>
+
+<div class="p-6">
+  <div class="grid grid-cols-3 gap-4 p-6">
+    <!-- Columna productos -->
+    <div class="col-span-2 space-y-4">
+      <div *ngFor="let store of stores" class="border rounded-lg p-4">
+        <h2 class="font-semibold text-gray-700 mb-3">Productos de {{ store[0] }}</h2>
+
+        <div
+          *ngFor="let product of store[1]"
+          class="flex items-center border-b pb-4 mb-4 last:mb-0 last:pb-0 last:border-b-0"
+        >
+          <input
+            type="checkbox"
+            [checked]="product.selected"
+            (change)="toggleProduct(product)"
+            class="mr-3"
+          />
+
+          <img
+            [src]="product.image"
+            alt="producto"
+            class="w-20 h-20 object-cover rounded-md"
+          />
+
+          <div class="ml-4 flex-1">
+            <div class="w-full flex flex-row items-center gap-x-10">
+              <p class="text-left text-gray-800 font-medium m-0">
+                {{ product.name }}
+              </p>
+
+              <div
+                class="flex items-center justify-center border rounded p-0.5 m-0 gap-x-5"
+              >
+                <button (click)="decrease(product)" class="px-2 py-1 cursor-pointer">
+                  -
+                </button>
+
+                <span>{{ product.quantity }}</span>
+
+                <button (click)="increase(product)" class="px-2 py-1 cursor-pointer">
+                  +
+                </button>
+              </div>
+            </div>
+
+            <button
+              (click)="removeProduct(product.id)"
+              class="flex items-center justify-center pl-2 text-red-500 cursor-pointer"
+            >
+              Eliminar
+            </button>
+          </div>
+
+          <div class="h-full flex justify-center items-center">
+            <p class="text-xl font-semibold">
+              S/{{ product.price * product.quantity | number : "1.2-2" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen de compra -->
+    <div class="border rounded-lg p-4 h-fit">
+      <h2 class="font-semibold text-gray-700 mb-3">Resumen de compra</h2>
+
+      <div class="flex justify-between text-lg font-semibold mb-4">
+        <span>Total</span>
+        <span>S/{{ total | number : "1.2-2" }}</span>
+      </div>
+
+      <button
+        class="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded-lg disabled:bg-gray-400 cursor-pointer"
+        [disabled]="total === 0"
+      >
+        Continuar compra
+      </button>
+    </div>
+  </div>
+</div>

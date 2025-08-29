@@ -7,12 +7,15 @@ import { CategoriesComponent } from "./categories/categories.component"
 import { ProfileComponent } from "./profile/profile.component"
 import { FavoritesComponent } from "./favorites/favorites.component"
 import { UiService } from "../../../core/services/ui.service"
+import { CartComponent } from "../../../features/cart/cart.component"
+import { Router, RouterModule } from "@angular/router"
 
 @Component({
   selector: "shared-navbar",
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     SearchBarComponent,
     CategoriesComponent,
     ProfileComponent,
@@ -30,10 +33,6 @@ export class NavbarComponent {
 
   toggleFavoritesMenu() {
     this.uiService.toggleFavorites()
-  }
-
-  toggleCartMenu() {
-    this.uiService.toggleCart()
   }
 
   @ViewChild(ProfileComponent) profile!: ProfileComponent
