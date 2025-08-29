@@ -5,7 +5,7 @@ import { Component, ViewChild } from "@angular/core"
 import { SearchBarComponent } from "./search-bar/search-bar.component"
 import { CategoriesComponent } from "./categories/categories.component"
 import { ProfileComponent } from "./profile/profile.component"
-import { FavoritesComponent } from "../favorites/favorites.component"
+import { FavoritesComponent } from "./favorites/favorites.component"
 import { UiService } from "../../../core/services/ui.service"
 
 @Component({

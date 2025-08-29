@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common"
 import { Component } from "@angular/core"
 import { Observable } from "rxjs"
 
-import { UiService } from "../../../core/services/ui.service"
+import { UiService } from "../../../../core/services/ui.service"
 
 @Component({
   selector: "nav-favorites",
